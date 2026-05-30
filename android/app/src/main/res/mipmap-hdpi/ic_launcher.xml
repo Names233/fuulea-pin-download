@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?> <!-- XML 声明 / XML declaration -->
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"> <!-- 自适应图标 / Adaptive icon -->
-    <background android:drawable="@color/blue_primary"/> <!-- 蓝色背景 / Blue background -->
-    <foreground android:drawable="@drawable/ic_launcher_foreground"/> <!-- 前景图标 / Foreground icon -->
-</adaptive-icon>

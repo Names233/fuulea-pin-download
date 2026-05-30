@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?> <!-- XML 声明 / XML declaration -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" <!-- 矢量图根元素 / Vector root element -->
-    android:width="108dp" <!-- 宽度 / Width -->
-    android:height="108dp" <!-- 高度 / Height -->
-    android:viewportWidth="108" <!-- 视口宽度 / Viewport width -->
-    android:viewportHeight="108"> <!-- 视口高度 / Viewport height -->
-    <!-- 下载箭头图标 / Download arrow icon -->
-    <path <!-- 路径 / Path -->
-        android:fillColor="#FFFFFF" <!-- 白色填充 / White fill -->
-        android:pathData="M54,20 L54,70 M54,70 L38,54 M54,70 L70,54 M30,80 L78,80" <!-- 箭头路径数据 / Arrow path data -->
-        android:strokeWidth="4" <!-- 笔画宽度 / Stroke width -->
-        android:strokeColor="#FFFFFF" <!-- 笔画颜色白色 / Stroke color white -->
-        android:strokeLineCap="round" <!-- 圆角端点 / Round line cap -->
-        android:strokeLineJoin="round"/> <!-- 圆角连接 / Round line join -->
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,24L54,68M54,68L40,54M54,68L68,54M32,78L76,78"
+        android:strokeWidth="5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
 </vector>
