@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- XML 声明 / XML declaration -->
+<resources> <!-- 资源根元素 / Resources root element -->
+    <color name="blue_primary">#1890FF</color> <!-- 主色调(蓝) / Primary color (blue) -->
+    <color name="blue_dark">#096DD9</color> <!-- 深蓝色 / Dark blue -->
+    <color name="blue_light">#40A9FF</color> <!-- 浅蓝色 / Light blue -->
+    <color name="white">#FFFFFF</color> <!-- 白色 / White -->
+    <color name="black">#000000</color> <!-- 黑色 / Black -->
+    <color name="gray_light">#F5F5F5</color> <!-- 浅灰色 / Light gray -->
+    <color name="gray_dark">#666666</color> <!-- 深灰色 / Dark gray -->
+    <color name="green_success">#52C41A</color> <!-- 成功绿 / Success green -->
+    <color name="red_error">#FF4D4F</color> <!-- 错误红 / Error red -->
+</resources>

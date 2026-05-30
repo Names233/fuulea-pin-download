@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- XML 声明 / XML declaration -->
+<network-security-config> <!-- 网络安全配置 / Network security config -->
+    <base-config cleartextTrafficPermitted="false"> <!-- 基础配置(禁止明文) / Base config (no cleartext) -->
+        <trust-anchors> <!-- 信任锚点 / Trust anchors -->
+            <certificates src="system"/> <!-- 系统证书 / System certificates -->
+        </trust-anchors>
+    </base-config>
+</network-security-config>

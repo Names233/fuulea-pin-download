@@ -1,8 +1,9 @@
 # 📥 fuulea-pin-download
 
 [![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-orange.svg)](https://github.com/Names233/fuulea-pin-download/releases/tag/v1.0.0)
+[![Android](https://img.shields.io/badge/Android-10%2B-green.svg)](https://developer.android.com)
+[![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
+[![Release](https://img.shields.io/badge/Release-v1.0.1-orange.svg)](https://github.com/Names233/fuulea-pin-download/releases/tag/v1.0.1)
 
 > 根据 PIN 码批量下载 [fuulea.com](https://www.fuulea.com/) 学习资料，并按网页原始文件名自动重命名。
 >
@@ -10,41 +11,26 @@
 
 ---
 
-## ✨ 功能特性 / Features
+## 📦 项目组成 / Project Structure
 
-- 🔑 **PIN 码一键下载** — 输入 PIN 码，自动获取并下载所有文件 / One-click download by PIN code
-- 📝 **智能重命名** — 使用网页上显示的原始文件名，而非 URL 乱码名 / Smart renaming using display names
-- 📊 **进度显示** — 实时显示下载进度和文件大小 / Real-time progress display
-- 🛡️ **文件名安全处理** — 自动清理 Windows 非法字符 / Auto-sanitize illegal filename characters
-- 🔄 **防覆盖机制** — 同名文件自动添加序号 / Auto-append suffix for duplicate filenames
-- 💻 **跨平台兼容** — Windows / macOS / Linux 均可使用 / Cross-platform support
+| 组件 / Component | 说明 / Description | 目录 / Directory |
+|---|---|---|
+| 🐍 Python CLI | 命令行下载工具 / CLI download tool | `fuulea_download.py` |
+| 📱 Android App | 安卓客户端 / Android client | `android/` |
 
 ---
 
-## 📦 安装 / Installation
+## 🐍 Python CLI
 
-### 1. 克隆仓库 / Clone repository
+### 安装 / Installation
 
 ```bash
 git clone https://github.com/Names233/fuulea-pin-download.git
 cd fuulea-pin-download
-```
-
-### 2. 安装依赖 / Install dependencies
-
-```bash
 pip install requests
 ```
 
-> 💡 仅需 Python 3.6+ 和 requests 库，无其他依赖。
->
-> Only requires Python 3.6+ and the requests library. No other dependencies.
-
----
-
-## 🚀 使用方法 / Usage
-
-### 基本用法 / Basic usage
+### 使用 / Usage
 
 ```bash
 # 下载到当前目录 / Download to current directory
@@ -57,78 +43,108 @@ python fuulea_download.py <PIN码> <输出目录>
 ### 示例 / Examples
 
 ```bash
-# 示例 1: 下载到当前目录 / Example 1: Download to current dir
 python fuulea_download.py m6w795w
-
-# 示例 2: 下载到指定目录 / Example 2: Download to specific dir
 python fuulea_download.py m6w795w ~/Downloads/geography
-
-# 示例 3: Windows 用户 / Example 3: Windows users
-python fuulea_download.py 3q825y5 C:\Downloads\math
-```
-
-### 输出示例 / Output example
-
-```
-📌 PIN 码 / PIN code: m6w795w
-📁 输出目录 / Output dir: /Users/you/Downloads/geography
-
-🔍 正在获取文件列表... / Fetching file list...
-📋 找到 4 个文件 / Found 4 file(s):
-   1. 地理考前必看精华.pdf
-   2. 5.26地理实践力复习素材.pdf
-   3. 碳循环专题练习+高考地理考前读本（教育研究院）.pdf
-   4. 高考冲刺-自然+人文+选必2+选必3.pdf
-
-⬇️  [1/4] 正在下载 / Downloading: 地理考前必看精华.pdf
-     → 保存为 / Saved as: 地理考前必看精华.pdf
-  ✓ 完成 / Done (1.9 MB)
-⬇️  [2/4] 正在下载 / Downloading: 5.26地理实践力复习素材.pdf
-     → 保存为 / Saved as: 5.26地理实践力复习素材.pdf
-  ✓ 完成 / Done (1.8 MB)
-...
-
-✅ 下载完成 / Download complete: 4/4 个文件成功 / files succeeded
-📁 保存位置 / Saved to: /Users/you/Downloads/geography
 ```
 
 ---
 
-## 📁 项目结构 / Project structure
+## 📱 Android App
 
+### 功能特性 / Features
+
+- 🔑 **手动输入 PIN 码** — 直接输入 PIN 码下载 / Manual PIN input
+- 📷 **二维码扫描** — 扫描二维码自动提取 PIN / QR code scanning with auto PIN extraction
+  - 支持链接格式 / Supported URL formats:
+    - `https://t.fuulea.com?pin=m6w795w`
+    - `https://www.fuulea.com/class/task/download/?pin=m6w795w`
+    - 纯 PIN 码 / Pure PIN code
+- 📁 **自动保存** — 文件保存到 Download 文件夹 / Auto-save to Download folder
+- 📊 **下载进度** — 实时显示下载状态 / Real-time download progress
+- 🔄 **智能重命名** — 使用网页原始文件名 / Smart renaming with original filenames
+- 📱 **Android 10-17** — 全版本兼容 / Full version compatibility
+
+### 技术栈 / Tech Stack
+
+- **语言 / Language:** Kotlin
+- **UI 框架 / UI Framework:** Jetpack Compose + Material 3
+- **扫码 / QR Scanning:** CameraX + ML Kit Barcode Scanning
+- **下载 / Download:** OkHttp + WorkManager
+- **存储 / Storage:** MediaStore (Android 10+) / Legacy (Android 10-)
+
+### 构建 / Build
+
+```bash
+# 打开 Android Studio 打开项目 / Open project in Android Studio
+# 或使用命令行构建 / Or build with command line
+cd android
+./gradlew assembleDebug
+
+# APK 输出路径 / APK output path
+# android/app/build/outputs/apk/debug/app-debug.apk
 ```
-fuulea-pin-download/
-├── fuulea_download.py    # 主程序 / Main script
-├── README.md             # 项目说明 / Project documentation
-├── LICENSE               # MIT 开源协议 / MIT License
-└── .gitignore            # Git 忽略规则 / Git ignore rules
-```
+
+### 安装 / Install
+
+1. 下载 Release 中的 APK / Download APK from Release
+2. 允许安装未知来源应用 / Allow install from unknown sources
+3. 安装并打开 / Install and open
+
+### 使用 / Usage
+
+1. **手动输入:** 输入 PIN 码 → 点击"开始下载" / **Manual:** Enter PIN → Tap "Download"
+2. **扫码:** 切换到"扫码输入" → 对准二维码 → 自动下载 / **Scan:** Switch to "Scan" → Point at QR code → Auto-download
+
+### 权限说明 / Permissions
+
+| 权限 / Permission | 用途 / Purpose |
+|---|---|
+| `INTERNET` | 下载文件 / Download files |
+| `CAMERA` | 扫描二维码 / Scan QR codes |
 
 ---
 
 ## 🔧 工作原理 / How it works
 
 ```
-用户输入 PIN 码
-    ↓
-访问 https://www.fuulea.com/class/task/download/?pin=<PIN>
-    ↓
-解析 HTML 提取文件名和下载链接
-    ↓
-从 s.100tifen.com CDN 逐个下载文件
-    ↓
-按网页原始文件名保存到本地
-
-User enters PIN code
-    ↓
-Visit https://www.fuulea.com/class/task/download/?pin=<PIN>
-    ↓
-Parse HTML to extract filenames and download URLs
-    ↓
-Download files one by one from s.100tifen.com CDN
-    ↓
-Save locally with original filenames from webpage
+                        ┌─────────────────────┐
+                        │   用户输入 PIN 码    │
+                        │  或扫描二维码        │
+                        └──────────┬──────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │  提取 PIN 码         │
+                        │  (URL 解析/正则)     │
+                        └──────────┬──────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │  请求 fuulea.com     │
+                        │  获取文件列表        │
+                        └──────────┬──────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │  解析 HTML           │
+                        │  提取文件名+URL      │
+                        └──────────┬──────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │  从 CDN 下载文件     │
+                        │  重命名为原始文件名  │
+                        └──────────┬──────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │  保存到本地          │
+                        │  Download 文件夹     │
+                        └─────────────────────┘
 ```
+
+---
+
+## 📸 截图 / Screenshots
+
+| 手动输入 / Manual Input | 扫码输入 / QR Scan |
+|---|---|
+| 输入 PIN 码，点击下载 / Enter PIN, tap download | 扫描二维码自动下载 / Scan QR to auto-download |
 
 ---
 
@@ -137,6 +153,7 @@ Save locally with original filenames from webpage
 - 本工具仅供个人学习使用，请勿用于商业用途 / For personal study only, not for commercial use
 - 下载速度取决于网络状况和文件大小 / Download speed depends on network and file size
 - 请确保 PIN 码正确有效 / Please ensure the PIN code is valid
+- Android 扫码功能需要相机权限 / Android scanning requires camera permission
 
 ---
 

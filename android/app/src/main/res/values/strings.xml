@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- XML 声明 / XML declaration -->
+<resources> <!-- 资源根元素 / Resources root element -->
+    <string name="app_name">Fuulea下载器</string> <!-- 应用名称 / App name -->
+    <string name="tab_manual">手动输入</string> <!-- 手动输入标签 / Manual input tab -->
+    <string name="tab_scan">扫码输入</string> <!-- 扫码输入标签 / Scan input tab -->
+    <string name="hint_pin">请输入 PIN 码</string> <!-- PIN 码输入提示 / PIN input hint -->
+    <string name="btn_download">开始下载</string> <!-- 下载按钮 / Download button -->
+    <string name="btn_scan">扫描二维码</string> <!-- 扫码按钮 / Scan button -->
+    <string name="downloading">正在下载…</string> <!-- 下载中提示 / Downloading message -->
+    <string name="download_complete">下载完成</string> <!-- 下载完成提示 / Download complete message -->
+    <string name="download_failed">下载失败</string> <!-- 下载失败提示 / Download failed message -->
+    <string name="no_pin">请输入 PIN 码</string> <!-- 无 PIN 码提示 / No PIN message -->
+    <string name="invalid_pin">PIN 码无效</string> <!-- 无效 PIN 提示 / Invalid PIN message -->
+    <string name="camera_permission_required">需要相机权限才能扫描二维码</string> <!-- 相机权限提示 / Camera permission message -->
+    <string name="scanning">正在扫描…</string> <!-- 扫描中提示 / Scanning message -->
+    <string name="scan_result">扫描结果</string> <!-- 扫描结果 / Scan result -->
+    <string name="no_files_found">未找到可下载的文件</string> <!-- 未找到文件 / No files found -->
+    <string name="file_count">找到 %d 个文件</string> <!-- 文件数 / File count -->
+    <string name="download_progress">%1$d/%2$d 正在下载: %3$s</string> <!-- 下载进度 / Download progress -->
+    <string name="download_success">成功下载 %d 个文件</string> <!-- 下载成功 / Download success -->
+    <string name="download_to">保存到: %s</string> <!-- 保存位置 / Save location -->
+</resources>
