@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?> <!-- XML 声明 / XML declaration -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" <!-- 清单根元素 / Manifest root element -->
-    xmlns:tools="http://schemas.android.com/tools"> <!-- 工具命名空间 / Tools namespace -->
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 网络权限 / Internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,24 +16,23 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
-        android:allowBackup="true" <!-- 允许备份 / Allow backup -->
-        android:icon="@mipmap/ic_launcher" <!-- 应用图标 / App icon -->
-        android:label="@string/app_name" <!-- 应用名称 / App name -->
-        android:supportsRtl="true" <!-- 支持 RTL 布局 / Support RTL layout -->
-        android:theme="@style/Theme.FuuleaDownloader" <!-- 应用主题 / App theme -->
-        android:networkSecurityConfig="@xml/network_security_config" <!-- 网络安全配置 / Network security config -->
-        tools:targetApi="35"> <!-- 目标 API / Target API -->
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FuuleaDownloader"
+        tools:targetApi="35">
 
         <!-- 主 Activity / Main Activity -->
         <activity
-            android:name=".MainActivity" <!-- Activity 类名 / Activity class name -->
-            android:exported="true" <!-- 允许外部启动 / Allow external launch -->
-            android:theme="@style/Theme.FuuleaDownloader"> <!-- Activity 主题 / Activity theme -->
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FuuleaDownloader">
 
             <!-- 启动器 Intent / Launcher Intent -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" /> <!-- 主动作 / Main action -->
-                <category android:name="android.intent.category.LAUNCHER" /> <!-- 启动器类别 / Launcher category -->
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
