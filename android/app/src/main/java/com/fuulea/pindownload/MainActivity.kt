@@ -546,7 +546,7 @@ private fun startDownload( // 开始下载方法 / Start download method
 
             val request = okhttp3.Request.Builder() // 请求构建器 / Request builder
                 .url(url) // 设置 URL / Set URL
-                .header("User-Agent", DownloadWorker.Constants.DEFAULT_UA) // 设置 UA / Set UA
+                .header("User-Agent", DownloadWorker.DEFAULT_UA) // 设置 UA / Set UA
                 .build() // 构建 / Build
 
             val response = client.newCall(request).execute() // 执行请求 / Execute request
