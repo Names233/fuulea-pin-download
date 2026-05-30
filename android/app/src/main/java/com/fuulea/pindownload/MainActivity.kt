@@ -43,6 +43,7 @@ import androidx.core.content.ContextCompat // 内容上下文 / Content context
 import androidx.lifecycle.compose.LocalLifecycleOwner // 生命周期所有者 / Lifecycle owner
 import androidx.work.* // WorkManager / WorkManager
 import com.google.mlkit.vision.barcode.BarcodeScanner // 条码扫描器 / Barcode scanner
+import kotlinx.coroutines.* // 协程 / Coroutines
 import com.google.mlkit.vision.barcode.BarcodeScanning // 条码扫描 / Barcode scanning
 import com.google.mlkit.vision.barcode.common.Barcode // 条码 / Barcode
 import com.google.mlkit.vision.common.InputImage // 输入图像 / Input image
@@ -529,14 +530,14 @@ private fun processImageProxy( // 处理图像代理方法 / Process image proxy
  * @param onProgress 进度回调 / Progress callback
  */
 private fun startDownload( // 开始下载方法 / Start download method
-    android.content.Context context, // 上下文 / Context
+    context: android.content.Context, // 上下文 / Context
     pin: String, // PIN 码 / PIN code
     onProgress: (String, String?, Int) -> Unit // 进度回调 / Progress callback
 ) {
     onProgress("🔍 正在获取文件列表…", null, 0) // 显示获取中 / Show fetching
 
     // 在后台线程获取页面 / Fetch page in background thread
-    kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch { // 协程 / Coroutine
+    CoroutineScope(Dispatchers.IO).launch { // 协程 / Coroutine
         try {
             val url = "https://www.fuulea.com/class/task/download/?pin=$pin" // 构建 URL / Build URL
             val client = okhttp3.OkHttpClient.Builder() // OkHttp 构建器 / OkHttp builder
@@ -555,20 +556,20 @@ private fun startDownload( // 开始下载方法 / Start download method
             val files = parseHtmlFiles(html) // 解析 HTML / Parse HTML
 
             if (files.isEmpty()) { // 没有文件 / No files
-                withContext(kotlinx.coroutines.Dispatchers.Main) { // 切换到主线程 / Switch to main thread
+                withContext(Dispatchers.Main) { // 切换到主线程 / Switch to main thread
                     onProgress("", "❌ 未找到可下载的文件", 0) // 显示错误 / Show error
                 }
                 return@launch // 返回 / Return
             }
 
-            withContext(kotlinx.coroutines.Dispatchers.Main) { // 切换到主线程 / Switch to main thread
+            withContext(Dispatchers.Main) { // 切换到主线程 / Switch to main thread
                 onProgress("📋 找到 ${files.size} 个文件，开始下载…", null, files.size) // 显示文件数 / Show file count
             }
 
             // 逐个下载 / Download one by one
             var successCount = 0 // 成功计数 / Success counter
             for ((index, file) in files.withIndex()) { // 遍历文件 / Iterate files
-                withContext(kotlinx.coroutines.Dispatchers.Main) { // 切换到主线程 / Switch to main thread
+                withContext(Dispatchers.Main) { // 切换到主线程 / Switch to main thread
                     onProgress( // 更新进度 / Update progress
                         "⬇️ [${index + 1}/${files.size}] 正在下载: ${file.first}",
                         null,
@@ -601,11 +602,11 @@ private fun startDownload( // 开始下载方法 / Start download method
                 // 等待任务完成 / Wait for task to complete
                 val workInfo = workManager.getWorkInfoByIdLiveData(workRequest.id) // 获取工作信息 / Get work info
                 // 简单等待(实际应用中应使用更优雅的方式) / Simple wait (should use more elegant approach in production)
-                kotlinx.coroutines.delay(3000) // 延迟 3 秒 / Delay 3 seconds
+                delay(3000) // 延迟 3 秒 / Delay 3 seconds
                 successCount++ // 递增成功计数 / Increment success count
             }
 
-            withContext(kotlinx.coroutines.Dispatchers.Main) { // 切换到主线程 / Switch to main thread
+            withContext(Dispatchers.Main) { // 切换到主线程 / Switch to main thread
                 onProgress( // 更新进度 / Update progress
                     "",
                     "✅ 成功下载 $successCount/${files.size} 个文件\n📁 保存到: Download 文件夹",
@@ -613,7 +614,7 @@ private fun startDownload( // 开始下载方法 / Start download method
                 )
             }
         } catch (e: Exception) { // 异常处理 / Exception handling
-            withContext(kotlinx.coroutines.Dispatchers.Main) { // 切换到主线程 / Switch to main thread
+            withContext(Dispatchers.Main) { // 切换到主线程 / Switch to main thread
                 onProgress("", "❌ 下载失败: ${e.message}", 0) // 显示错误 / Show error
             }
         }
