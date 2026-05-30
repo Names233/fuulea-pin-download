@@ -1,76 +1,67 @@
-# GitHub Actions 工作流: 自动构建 Android APK / GitHub Actions Workflow: Auto Build Android APK
-name: Build Android APK # 工作流名称 / Workflow name
+name: Build Android APK
 
-# 触发条件 / Triggers
 on:
-  push: # 推送事件 / Push event
-    tags: # 标签触发 / Tag trigger
-      - 'v*' # 匹配 v 开头的标签 / Match tags starting with v
-  workflow_dispatch: # 手动触发 / Manual trigger
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
 
-# 权限设置 / Permission settings
 permissions:
-  contents: write # 写入内容权限(上传 Release 资产) / Write content permission (upload release assets)
+  contents: write
 
-jobs: # 任务定义 / Job definitions
-  build: # 构建任务 / Build job
-    name: Build & Release # 任务名称 / Job name
-    runs-on: ubuntu-latest # 运行环境 / Runner environment
+jobs:
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
 
-    steps: # 步骤 / Steps
-      # 步骤 1: 检出代码 / Step 1: Checkout code
-      - name: Checkout code # 步骤名称 / Step name
-        uses: actions/checkout@v4 # 使用 checkout action / Use checkout action
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # 步骤 2: 设置 JDK 17 / Step 2: Setup JDK 17
-      - name: Set up JDK 17 # 步骤名称 / Step name
-        uses: actions/setup-java@v4 # 使用 setup-java action / Use setup-java action
-        with: # 参数 / Parameters
-          distribution: 'temurin' # Temurin 发行版 / Temurin distribution
-          java-version: '17' # Java 17 版本 / Java 17 version
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      # 步骤 3: 设置 Gradle (自动生成 wrapper) / Step 3: Setup Gradle (auto-generate wrapper)
-      - name: Setup Gradle # 步骤名称 / Step name
-        uses: gradle/actions/setup-gradle@v4 # 使用 setup-gradle action / Use setup-gradle action
-        with: # 参数 / Parameters
-          gradle-version: '8.11.1' # Gradle 版本 / Gradle version
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
 
-      # 步骤 4: 构建 Debug APK / Step 4: Build Debug APK
-      - name: Build Debug APK # 步骤名称 / Step name
-        run: | # 执行命令 / Run commands
-          cd android # 进入 android 目录 / Enter android directory
-          gradle assembleDebug --no-daemon # 构建 debug APK / Build debug APK
+      - name: Build Debug APK
+        run: |
+          cd android
+          gradle assembleDebug --no-daemon
 
-      # 步骤 5: 构建 Release APK / Step 5: Build Release APK
-      - name: Build Release APK # 步骤名称 / Step name
-        run: | # 执行命令 / Run commands
-          cd android # 进入 android 目录 / Enter android directory
-          gradle assembleRelease --no-daemon # 构建 release APK / Build release APK
+      - name: Build Release APK
+        run: |
+          cd android
+          gradle assembleRelease --no-daemon
 
-      # 步骤 6: 重命名 APK 文件 / Step 6: Rename APK files
-      - name: Rename APKs # 步骤名称 / Step name
-        run: | # 执行命令 / Run commands
-          cp android/app/build/outputs/apk/debug/app-debug.apk \
-             android/app/build/outputs/apk/debug/fuulea-pin-download-v1.0.1-debug.apk 2>/dev/null || true
-          cp android/app/build/outputs/apk/release/app-release-unsigned.apk \
-             android/app/build/outputs/apk/release/fuulea-pin-download-v1.0.1-release.apk 2>/dev/null || true
+      - name: Sign Release APK
+        run: |
+          # 生成调试签名密钥 / Generate debug signing key
+          keytool -genkeypair -v -keystore /tmp/debug.keystore -alias debug -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Debug,O=Debug,L=Debug,S=Debug,C=US"
+          # 签名 release APK / Sign release APK
+          cd android
+          /usr/local/lib/android/sdk/build-tools/35.0.0/apksigner sign --ks /tmp/debug.keystore --ks-pass pass:android --key-pass pass:android --out app/build/outputs/apk/release/fuulea-pin-download-v1.0.3.apk app/build/outputs/apk/release/app-release-unsigned.apk 2>/dev/null || \
+          $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools/ | tail -1)/apksigner sign --ks /tmp/debug.keystore --ks-pass pass:android --key-pass pass:android --out app/build/outputs/apk/release/fuulea-pin-download-v1.0.3.apk app/build/outputs/apk/release/app-release-unsigned.apk
 
-      # 步骤 7: 上传 APK 到 GitHub Release / Step 7: Upload APK to GitHub Release
-      - name: Upload APK to Release # 步骤名称 / Step name
-        uses: softprops/action-gh-release@v2 # 使用 Release action / Use Release action
-        if: startsWith(github.ref, 'refs/tags/') # 仅在标签推送时执行 / Only on tag push
-        with: # 参数 / Parameters
-          files: | # 上传文件 / Upload files
-            android/app/build/outputs/apk/debug/*.apk
-            android/app/build/outputs/apk/release/*.apk
-          fail_on_unmatched_files: false # 没有匹配文件时不失败 / Don't fail on no match
+      - name: Upload APK to Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/release/fuulea-pin-download-v1.0.3.apk
+          fail_on_unmatched_files: false
 
-      # 步骤 8: 上传 APK 为 Artifact / Step 8: Upload APK as Artifact
-      - name: Upload APK as Artifact # 步骤名称 / Step name
-        uses: actions/upload-artifact@v4 # 使用 upload-artifact action / Use upload-artifact action
-        with: # 参数 / Parameters
-          name: fuulea-apk # Artifact 名称 / Artifact name
-          path: | # 上传路径 / Upload paths
-            android/app/build/outputs/apk/debug/*.apk
-            android/app/build/outputs/apk/release/*.apk
-          retention-days: 30 # 保留 30 天 / Retain for 30 days
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuulea-apk
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/release/fuulea-pin-download-v1.0.3.apk
+          retention-days: 30
