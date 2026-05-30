@@ -631,7 +631,7 @@ private fun parseHtmlFiles(html: String): List<Pair<String, String>> { // 解析
     val results = mutableListOf<Pair<String, String>>() // 结果列表 / Result list
 
     // 表格行匹配 / Table row matching
-    val trPattern = Regex("""<tr>(.*?)</tr>""", RegexOption.DOT_MATCH_ALL) // 匹配 <tr> / Match <tr>
+    val trPattern = Regex("""<tr>(.*?)</tr>""", RegexOption.DOT_MATCHES_ALL) // 匹配 <tr> / Match <tr>
     val urlPattern = Regex("""href=["']?(https?://s\.100tifen\.com/media/task/[^"'\s>]+)""") // 匹配 URL / Match URL
     val filenamePattern = Regex("""([^\s<>"']+\.(?:pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|mp3|mp4|jpg|png|jpeg))""", RegexOption.IGNORE_CASE) // 匹配文件名 / Match filename
 
