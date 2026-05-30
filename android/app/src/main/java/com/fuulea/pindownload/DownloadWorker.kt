@@ -43,6 +43,9 @@ class DownloadWorker( // 下载 Worker 类 / Download Worker class
         // 通知渠道 / Notification channel
         const val CHANNEL_ID = "download_channel" // 渠道 ID / Channel ID
         const val NOTIFICATION_ID = 1 // 通知 ID / Notification ID
+
+        // 默认 User-Agent / Default User-Agent
+        const val DEFAULT_UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
     }
 
     // OkHttp 客户端 / OkHttp client
@@ -243,7 +246,4 @@ class DownloadWorker( // 下载 Worker 类 / Download Worker class
         }
     }
 
-    companion object Constants { // 常量伴生对象 / Constants companion object
-        const val DEFAULT_UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36" // 默认 User-Agent / Default User-Agent
-    }
 }
