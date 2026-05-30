@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
 [![Android](https://img.shields.io/badge/Android-10%2B-green.svg)](https://developer.android.com)
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Release-v1.0.1-orange.svg)](https://github.com/Names233/fuulea-pin-download/releases/tag/v1.0.1)
+[![Release](https://img.shields.io/badge/Release-v1.0.2-orange.svg)](https://github.com/Names233/fuulea-pin-download/releases/tag/v1.0.2)
 
 > 根据 PIN 码批量下载 [fuulea.com](https://www.fuulea.com/) 学习资料，并按网页原始文件名自动重命名。
 >
@@ -33,19 +33,41 @@ pip install requests
 ### 使用 / Usage
 
 ```bash
-# 下载到当前目录 / Download to current directory
-python fuulea_download.py <PIN码>
+# 🌟 交互模式(推荐) / Interactive mode (recommended)
+python fuulea_download.py
 
-# 下载到指定目录 / Download to specified directory
+# 直接下载模式 / Direct download mode
+python fuulea_download.py <PIN码>
 python fuulea_download.py <PIN码> <输出目录>
 ```
 
-### 示例 / Examples
+### 交互模式 / Interactive Mode
 
-```bash
-python fuulea_download.py m6w795w
-python fuulea_download.py m6w795w ~/Downloads/geography
 ```
+  ╔══════════════════════════════════════════════╗
+  ║     📥 Fuulea Interactive Downloader v1.0.2  ║
+  ╚══════════════════════════════════════════════╝
+
+  输入 PIN 码开始下载，支持连续输入多个任务
+  ❯ m6w795w
+  ✓ 任务 #1 已添加: m6w795w
+  ❯ 3q825y5
+  ✓ 任务 #2 已添加: 3q825y5
+  #1 ⬇️  [1/4] 地理考前必看精华.pdf
+  #2 ⬇️  [1/3] 高中数学公式.pdf
+  #1 ✅ 完成: 4/4 文件
+  #2 ✅ 完成: 3/3 文件
+```
+
+### 命令 / Commands
+
+| 命令 / Command | 说明 / Description |
+|---|---|
+| `<PIN码>` | 下载指定 PIN 的文件 / Download files for PIN |
+| `help` | 显示帮助信息 / Show help |
+| `status` | 显示任务状态 / Show task status |
+| `clear` | 清屏 / Clear screen |
+| `exit` | 退出程序 / Exit program |
 
 ---
 
