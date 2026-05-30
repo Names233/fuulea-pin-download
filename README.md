@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
 [![Android](https://img.shields.io/badge/Android-10%2B-green.svg)](https://developer.android.com)
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Release-v1.0.2-orange.svg)](https://github.com/Names233/fuulea-pin-download/releases/tag/v1.0.2)
+[![Release](https://img.shields.io/badge/Release-v1.0.3-orange.svg)](https://github.com/Names233/fuulea-pin-download/releases/tag/v1.0.3)
 
 > 根据 PIN 码批量下载 [fuulea.com](https://www.fuulea.com/) 学习资料，并按网页原始文件名自动重命名。
 >
@@ -45,7 +45,7 @@ python fuulea_download.py <PIN码> <输出目录>
 
 ```
   ╔══════════════════════════════════════════════╗
-  ║     📥 Fuulea Interactive Downloader v1.0.2  ║
+  ║     📥 Fuulea Interactive Downloader v1.0.3  ║
   ╚══════════════════════════════════════════════╝
 
   输入 PIN 码开始下载，支持连续输入多个任务
