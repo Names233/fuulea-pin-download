@@ -352,9 +352,51 @@ def main():                                               # 主函数 / Main fun
     if len(sys.argv) >= 2 and not sys.argv[1].startswith("-"):
         pin = sys.argv[1].strip()                         # 获取 PIN / Get PIN
         out = sys.argv[2].strip() if len(sys.argv) > 2 else "."  # 输出目录 / Output dir
-        print_banner()                                    # 打印横幅 / Print banner
-        log(f"PIN: {pin}", "task")                        # 打印 PIN / Print PIN
-        run_download_task(0, pin, out)                    # 直接运行 / Run directly
+        print(f"\n{C.CYAN}{C.BOLD}  📥 Fuulea Downloader v1.0.2{C.RESET}\n")
+        print(f"  📌 PIN: {C.BOLD}{pin}{C.RESET}")
+        print(f"  📁 输出 / Output: {os.path.abspath(out)}\n")
+
+        try:
+            html = fetch_page(pin)
+            files = parse_files(html)
+            if not files:
+                print(f"  {C.RED}❌ 未找到文件 / No files found{C.RESET}")
+                sys.exit(1)
+
+            print(f"  📋 找到 {len(files)} 个文件 / Found {len(files)} file(s):")
+            for i, (name, _) in enumerate(files, 1):
+                print(f"     {i}. {name}")
+            print()
+
+            os.makedirs(out, exist_ok=True)
+            success = 0
+
+            for i, (name, url) in enumerate(files, 1):
+                clean = sanitize_filename(name)
+                save_path = os.path.join(out, clean)
+
+                if os.path.exists(save_path):
+                    base, ext = os.path.splitext(clean)
+                    c = 1
+                    while os.path.exists(save_path):
+                        save_path = os.path.join(out, f"{base}_{c}{ext}")
+                        c += 1
+
+                print(f"  ⬇️  [{i}/{len(files)}] {name}")
+                if download_file(url, save_path):
+                    size = format_size(os.path.getsize(save_path))
+                    print(f"  {C.GREEN}✓{C.RESET} 完成 / Done ({size})")
+                    success += 1
+                else:
+                    print(f"  {C.RED}✗{C.RESET} 失败 / Failed")
+
+            print(f"\n  ✅ 下载完成 / Done: {success}/{len(files)} 文件 / files")
+            print(f"  📁 保存位置 / Saved to: {os.path.abspath(out)}\n")
+
+        except Exception as e:
+            print(f"\n  {C.RED}❌ 错误 / Error: {e}{C.RESET}\n")
+            sys.exit(1)
+
         return                                            # 返回 / Return
 
     # 交互模式 / Interactive mode
