@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files / 字节编译文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging / 分发和打包文件
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments / 虚拟环境
+venv/
+env/
+.venv/
+
+# IDE files / IDE 配置文件
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files / 系统文件
+.DS_Store
+Thumbs.db
+
+# Downloaded files / 下载的文件
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.zip
+*.rar
